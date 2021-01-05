@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<title>红包雨</title>
+		
+		<style type="text/css">
+			.sub-main {
+				background: url(img/red_bg.png) no-repeat 0 0;
+				background-size: 100% 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="logo">
+			<div class="left fl">
+				<a href="#" class="btn1">首页</a>
+				<a href="#" class="btn1 active">红包雨</a>
+			</div>
+			<div class="right fr">
+				<a href="#" class="btn1">抽奖</a>
+				<a href="#" class="btn1">中奖名单</a>
+			</div>
+		</div>
+		<div id="main" class="main" style="position: relative;">
+			<div class="sub-main" style="height: 100%;">
+				<img class="red-title" src="img/red_title.png"/>
+				<p class="tips">使用微信扫面以下任意二维码即可参与活动</p>
+				<div class="ewm-wrap">
+					<img class="left" src="img/ewm_img.png"/>
+					<img class="big" src="img/ewm_img.png"/><!-- 大的 -->
+					<img class="right" src="img/ewm_img.png"/>
+				</div>
+				<div class="bottom"><img src="img/active_start_img.png" id="start" /></div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			window.onload = function () {
+				var main = document.getElementById('main');
+				main.style.height = window.innerHeight - 220 + 'px';
+				
+				var start = document.getElementById('start');
+				start.onmouseenter = function() {
+					this.src = 'img/active_start_hover_img.png';
+				}
+				start.onmouseout = function() {
+					this.src = 'img/active_start_img.png';
+				}
+			}
+		</script>
+	</body>
+</html>

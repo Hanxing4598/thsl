@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>中奖名单</title>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+	</head>
+
+	<body>
+		<div class="logo">
+			<div class="left fl" >
+				<a href="#" class="btn1 active">首页</a>
+				<a href="#" class="btn1">红包雨</a>
+			</div>
+			<div class="right fr">
+				<a href="#" class="btn1">抽奖</a>
+				<a href="#" class="btn1">中奖名单</a>
+			</div>
+		</div>
+		<div id="main" class="main">
+			<div class="left" style="padding-top: 100px; box-sizing: border-box;">
+				<img src="img/data_text_img.png" class="data-text" />
+				<div class="data-number">
+					<div class="number" id="number">
+						<img class="n" src="img/data_number_9.png" data-number="9" />
+						<img class="n" src="img/data_number_8.png" data-number="8" />
+						<img class="n" src="img/data_number_7.png" data-number="7" />
+						<img src="img/dot.png" />
+						<img class="n" src="img/data_number_6.png" data-number="6" />
+						<img class="n" src="img/data_number_5.png" data-number="5" />
+						<img class="n" src="img/data_number_4.png" data-number="4" />
+						<img src="img/dot.png" />
+						<img class="n" src="img/data_number_3.png" data-number="3" />
+						<img class="n" src="img/data_number_2.png" data-number="2" />
+						<img class="n" src="img/data_number_1.png" data-number="1" />
+					</div>
+					<img src="img/data_number_line.png" class="line" />
+				</div>
+				<div id="chart" style="position: relative;width: 100%;height:360px; left: 15%; width: 80%;"><img src=""/></div>
+			</div>
+		</div>
+
+		<script src="js/echarts.min.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				var main = document.getElementById('main');
+				main.style.height = window.innerHeight - 220 + 'px';
+
+				var imgs = document.getElementById('number').querySelectorAll('.n');
+
+				setTimeout(function() {
+					var timer = setInterval(function() {
+						for(var i = 0; i < imgs.length; i++) {
+							var number = parseInt(imgs[i].dataset.number);
+							number--;
+							if(number < 1) number = 9;
+							imgs[i].src = 'img/data_number_' + number + '.png'
+							imgs[i].dataset.number = number;
+							setTimeout(function() {
+								clearInterval(timer);
+							}, 1700);
+						}
+					}, 100);
+				}, 300)
+
+				var myChart = echarts.init(document.getElementById('chart'));
+
+				function drawDJZZT(xaxisdata, seriesyx) {
+					myChart.setOption({
+						title: {
+							text: '单\n位\n：\n万\n元',
+							right: 70,
+							top: 30,
+							textStyle: {
+								color: '#18c8ff',
+								fontSize: 22,
+								fontWeight: 'lighter'
+							}
+						},
+						xAxis: [{
+							type: 'category',
+							data: xaxisdata,
+							axisLine: {
+								lineStyle: {
+									color: '#18c8ff',
+									width: 2,
+									type: 'solid'
+								},
+							},
+							axisLabel: {
+								textStyle: {
+									color: '#18c8ff',
+									fontSize: 22
+								}
+							},
+							axisTick: {
+								show: false,
+								alignWithLabel: true
+							},
+							splitArea: {
+								show: false
+							},
+							splitLine: {
+								show: false
+							}
+						}],
+						yAxis: [{
+							type: 'value',
+							axisLine: {
+								lineStyle: {
+									color: '#18c8ff',
+									width: 2,
+									type: 'solid'
+								},
+							},
+							axisLabel: {
+								textStyle: {
+									color: '#18c8ff',
+									fontSize: 16
+								}
+							},
+							axisTick: {
+								show: false,
+								alignWithLabel: true
+							},
+							splitArea: {
+								show: false
+							},
+							splitLine: {
+								show: false
+							}
+						}],
+						series: [
+							{
+								type: 'bar',
+								data: seriesyx,
+								barWidth: 36,
+								itemStyle: {
+									normal: {
+										color: '#33effb'
+									}
+								}
+							}
+						]
+					});
+				}
+				drawDJZZT(["第一军团", "第二军团", "第三军团", "第四军团", "第五军团"], [30, 50, 100, 150, 200]);
+			}
+		</script>
+	</body>
+
+</html>

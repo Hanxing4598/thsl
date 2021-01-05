@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>红包雨</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+	    <meta content="telephone=no" name="format-detection" />
+	    <meta content="yes" name="apple-mobile-web-app-capable" />
+   		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+   		<link rel="stylesheet" type="text/css" href="css/redbao.css"/>
+   		
+		<script type="text/javascript">
+			
+			document.addEventListener('touchmove', function(e) {
+				e.preventDefault();
+			});
+			document.addEventListener('DOMContentLoaded', function() {
+				var win = window.innerWidth;
+				var winH = window.innerHeight;
+				var list = fid('red-list');
+				var total = 50; //最多红包数
+				var totalprice = 0; //抢到红包的金额
+				var myTotalNumber = 0; //抢到红包个数
+				
+				function fid(id) {
+					return document.getElementById(id);
+				}
+				
+				var add = function() {
+					var str = "<a href='javascript:;'><img src='img/red_bao_img.png'></a>";
+					var Wh = 40; //红包width
+					var Left = RandomNum(window.innerWidth/2, window.innerWidth+180); //随机生成一个x坐标
+					var rot = "30deg";
+					var li = document.createElement('li');
+					num++;
+					li.id = 'li'+num;
+					li.innerHTML = str;
+					list.appendChild(li);
+					
+					var fli = fid('li'+num);
+					fli.style.transform = 'translate3d('+ Left +'px, 0, 0)';
+					fli.style.webkitTransform = 'translate3d('+ Left +'px, 0, 0)';
+					
+					var img  = fli.querySelector('img');
+					img.style.width = Wh+'px';
+					img.style.transform = "rotate(" + rot + ")";
+					img.style.webkitTransform = "rotate(" + rot + ")";
+					img.onclick = redclick;
+					
+					setTimeout(function() {
+						//求出对边y轴坐标(反tan * 邻边得到对边长度)
+						var y = Math.atan(45)*Left;
+						fli.style.transform = 'translate3d(-50px, '+ y +'px, 0)';
+						fli.style.webkitTransform = 'translate3d(-50px, '+ y +'px, 0)';
+						setTimeout(function() {
+							img.onclick = null;
+							img = null;
+							fli.remove();
+						}, 5000);
+					}, 50)
+					
+					setTimeout(function() {
+						if (num < total) add();
+						else gameResult();
+					}, 500)
+				}
+
+				var num = 0;
+				setTimeout(add,0);
+				
+				function RandomNum(Min,Max){
+				      var Range = Max - Min;
+				      var Rand = Math.random();
+				      var num = Min + Math.round(Rand * Range);
+				      return num;
+				}
+				
+				//游戏结束操作
+				function gameResult() {
+					var p = totalprice;
+					var n = myTotalNumber;
+					var e = totalprice<=0?'no':'has';
+					
+					if (e === 'has') {
+						//替换
+						var tpl_html = fid(e).innerHTML;
+						var temphtml = tpl_html.replace( /\{total\}/g , n);
+						var html = temphtml.replace( /\{totalprice\}/g , p);
+						fid(e).innerHTML = html;
+					}
+					showDialog(e);
+				}
+				
+				function showDialog(ele) {
+					ele = fid(ele);
+					ele.style.display = 'block';
+					setTimeout(function() {
+						var e = ele.querySelector('.img-wrap');
+						e.style.transform = 'scale(1)';
+						e.style.webkitTransform = 'scale(1)';
+					}, 50);
+				}
+				
+				function redclick(e) {
+					this.onclick = null;
+					var li = this.parentNode.parentNode;
+					//假设<0.5的为没红包的、》0.5的为有红包的
+					var img = document.createElement('img');
+					li.remove();
+					if (Math.random() < 0.5) {
+						setTimeout(function() {
+							var num=Math.random();
+							img.src = 'img/boom0.gif?'+num;
+							
+							img.style.position = 'absolute';
+							img.style.left = e.pageX-52.5 + 'px';
+							img.style.top = e.pageY-52.5 + 'px';
+							img.style.width = '105px';
+							img.style.height = '105px';
+							document.body.appendChild(img);
+						}.call(this), 500);
+						setTimeout(function() {
+							img.remove();
+						}, 350);
+					}else {
+						//随机生成1~10元的红包
+						var number = RandomNum(1, 10);
+						var text = document.createElement('div');
+						var x = e.pageX;
+						var y = e.pageY-50;
+						text.innerText = '+'+number;
+						text.style.position = 'absolute';
+						text.style.left = x+'px';
+						text.style.top = y+'px';
+						text.style.transition = 'all 1s ease-out';
+						text.style.fontSize = '24px';
+						text.style.color = '#ffd752';
+						document.body.appendChild(text);
+						
+						totalprice += number;
+						myTotalNumber++;
+						setTimeout(function() {
+							text.style.transform = 'translate3d(0, -50px, 0)';
+							text.style.opacity = '0';
+							setTimeout(function() {
+								text.remove();
+							}, 1000);
+						}, 50);
+					}
+				}
+			});
+		</script>
+
+	</head>
+	<body>
+		<ul id="red-list" class="couten"></ul>
+		
+		<img src="img/red_bao_logo.png" class="logo" />
+		<!-- 游戏结束页面 -->
+		<div id="has" class="game-result hide">
+			<h2>游戏结束</h2>
+			<div class="img-wrap">
+				<img src="img/red_bao_has.png"/>
+				<div class="text">
+					<p class="top">本次一共抢到</p>
+					<p class="center">{total}个红包，共{totalprice}元</p>
+					<p class="bot">已存到零钱，请到零钱中查看。</p>
+				</div>
+			</div>
+		</div>
+		<div id="no" class="game-result hide">
+			<h2>游戏结束</h2>
+			<div class="img-wrap">
+				<img src="img/red_bao_no.png"/>
+				<div class="text">
+					<p class="top">天啊~~</p>
+					<p class="top">红包里面什么都没有</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

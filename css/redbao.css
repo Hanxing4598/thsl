@@ -1,0 +1,207 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+li,
+ul {
+	list-style-type: none;
+}
+
+html, body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	overflow-y: hidden;
+	background: url(../img/red_bao_bg.png) no-repeat top left;
+	background-size: 100%;
+	overflow: hidden;
+}
+
+.hide {
+	display: none;
+}
+
+.logo {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 80px;
+	z-index: 11;
+}
+.couten {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	overflow-y: hidden;
+}
+
+.couten li {
+	position: absolute;
+	top: -100px;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	transition: transform 5s ease-in;
+	text-align: center;
+}
+
+.couten li a {
+	display: block;
+}
+/*.couten li span {
+	display: block;
+	width: 100%;
+	position: absolute;
+	top: -30px;
+	right: -20px;
+	font-size: 24px;
+	color: #ffd752;
+	text-align: right;
+}*/
+.mo {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .2);
+	z-index: 100;
+	display: none;
+}
+
+.mo .sen {
+	width: 70%;
+	height: 150px;
+	border-radius: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.mo .sen img {
+	width: 60%;
+	height: 127px;
+	position: absolute;
+	top: 0px;
+	left: 0;
+	right: 0;
+	bottom: 212px;
+	margin: auto;
+	vertical-align: top;
+}
+
+.mo .sen h3 {
+	width: 50%;
+	height: 30px;
+	position: absolute;
+	top: -35px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	text-align: center;
+	color: red;
+	font-size: 140%;
+	font-weight: bold;
+	z-index: 999;
+}
+
+.mo .sen a {
+	width: 26%;
+	height: 50px;
+	background-color: rgb(174, 222, 244);
+	box-shadow: rgba(174, 222, 244, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;
+	position: absolute;
+	top: 100px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	color: #fff;
+	border-radius: 5px;
+	text-align: center;
+	line-height: 50px;
+	text-decoration: none;
+}
+
+.game-result {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url(../img/red_bao_bg2.jpg) no-repeat;
+	background-size: 100% 100%;
+	padding-top: 90px;
+	z-index: 10;
+}
+.game-result h2 {
+	color: #fff;
+	font-size: 28px;
+	text-align: center;
+	font-weight: normal;
+	margin-bottom: 25px;
+}
+.game-result img {
+    display: block;
+    width: 100%;
+}
+
+.game-result .img-wrap {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    transform: scale(0.2);
+    transition: all 1s cubic-bezier(0.42, 0, 0.99, 1.4);
+}
+
+.game-result .img-wrap .text p {
+	margin: 20px 0;
+}
+.game-result .img-wrap .text {
+    position: absolute;
+    width: 100%;
+    color: #fff;
+    top: 0;
+    padding: 0 20px;
+    word-break: break-all;
+    padding-top: 70%;
+    box-sizing: border-box;
+}
+
+.game-result .img-wrap .text .top {
+    font-size: 20px;
+}
+
+.game-result .img-wrap .text .center {
+    font-size: 16px;
+    word-break: break-all;
+}
+
+.game-result .img-wrap .text .bot {
+    font-size: 12px;
+    word-break: break-all;
+}
+@media only screen and (max-width: 320px) {
+	.game-result .img-wrap {
+		width: 60%;
+	}
+	.game-result .img-wrap .text {
+		padding: 0 10px;
+		padding-top: 70%;
+	}
+	.game-result h2 {
+		margin-bottom: 15px;
+	}
+	.game-result .img-wrap .text p {
+		margin: 10px 0;
+	}
+}
